@@ -54,9 +54,9 @@ COPY backend/.env /app/.env
 COPY --from=frontend-builder --chown=app:app /app/static/ ./static/
 
 USER app
-EXPOSE 8000
+EXPOSE 80
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/api/config || exit 1
+    CMD curl -f http://localhost:80/api/config || exit 1
 
 CMD ["python", "app.py"]
