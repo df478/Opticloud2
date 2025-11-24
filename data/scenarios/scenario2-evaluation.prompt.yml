@@ -1,5 +1,5 @@
-name: Contoso SaaS Contract Negotiation Evaluation
-description: Evaluate SaaS contract renewal negotiation conversation quality and effectiveness
+name: Campus IT Support Conversation Evaluation
+description: Evaluate effectiveness and service quality in campus IT support conversations
 model: gpt-4o
 modelParameters:
   temperature: 0.3
@@ -7,41 +7,36 @@ modelParameters:
 messages:
   - role: system
     content: |
-      You are an expert sales negotiation evaluator specializing in B2B SaaS contract renewals. Evaluate the provided negotiation between Contoso Enterprise Sales Director and TechCorp CTO.
-      
+      You are an expert evaluator in higher-education IT support communication. Evaluate the provided support conversation between a Campus IT Support Agent and a student, faculty or staff member.
+
       EVALUATION CRITERIA:
-      
+
       **SPEAKING TONE & STYLE (30 points):**
-      1. Professional Demeanor (10 pts) - Calm, confident, collaborative language throughout
-      2. Active Listening Signals (10 pts) - Shows understanding, doesn't interrupt, acknowledges technical concerns
-      3. Collaborative Approach (10 pts) - Uses "we" language, avoids defensiveness, builds partnership
-      
+      1. Professional Tone (10 pts) – Supportive, patient and student-centered
+      2. Active Listening Indicators (10 pts) – Clarifies needs, reflects understanding
+      3. Engagement Quality (10 pts) – Empathetic, reduces user anxiety, maintains trust
+
       **CONVERSATION CONTENT QUALITY (70 points):**
-      1. Preparation & Technical Understanding (25 pts) - References performance data, understands client's technical challenges
-      2. Value Articulation & Problem-Solving (25 pts) - Presents platform value clearly, offers technical win-win solutions
-      3. Agreement Building & SLA Clarity (20 pts) - Summarizes technical terms clearly, maintains relationship focus
-      
-      Focus on technical negotiation effectiveness while maintaining relationship integrity.
+      1. Needs Assessment & Understanding (25 pts) – Asks relevant questions (role, device, network, system), avoids assumptions
+      2. Value Proposition with Evidence (25 pts) – Provides clear troubleshooting steps, references campus tools/resources
+      3. Objection Handling & Problem Solving (20 pts) – Addresses frustration, ensures continuity of academic activities
+
+      Provide scores (0-max points) and specific feedback for improvement.
   - role: user
     content: |
-      Evaluate this negotiation:
-      {{negotiation_transcript}}
+      Evaluate this support interaction:
+      {{support_transcript}}
 testData:
-  - negotiation_transcript: |
-      Contoso Director: Sam, I see we achieved 99.2% uptime, though I know those three incidents were impactful.
-      Sam: Exactly. Those outages cost us customer trust and revenue. We need better than 99.5% SLA going forward.
-      Contoso Director: I understand completely. What if we offer 99.7% SLA with dedicated incident response, plus we'll co-invest in your disaster recovery testing?
-      Sam: That's more like it. What does the incident response timeline look like exactly?
-    expected: "Should evaluate technical negotiation tactics, relationship management, and solution creativity"
+  - support_transcript: |
+      Student: Hi, I can’t log into the LMS. It keeps saying my session expired.
+      IT Agent: I’m sorry about that — let’s get you back in quickly. Are you on campus Wi-Fi or at home right now?
+      Student: I’m off campus using my laptop.
+      IT Agent: Got it. Please confirm if you’re connected through VPN and which browser you’re using. We’ve seen this error in older browser versions.
+    expected: "Should evaluate tone, needs assessment questions, and relevance of troubleshooting guidance"
 evaluators:
-  - name: Technical negotiation assessment
-    description: Evaluates understanding of technical requirements and constraints
-  - name: Solution quality evaluation
-    description: Assesses creativity and technical merit of proposed solutions
+  - name: Technical support communication review
+    description: Evaluates understanding of academic-grade IT support practices
+  - name: Problem-solving quality evaluation
+    description: Assesses clarity, helpfulness and accuracy of support steps
   - name: Relationship impact analysis
-    description: Considers long-term partnership implications in tech sector
-    description: Evaluates collaborative vs. adversarial approach
-  - name: Solution quality evaluation
-    description: Assesses creativity and mutual benefit of proposed solutions
-  - name: Relationship impact analysis
-    description: Considers long-term partnership implications
+    description: Considers user confidence, accessibility and academic continuity

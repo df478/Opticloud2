@@ -1,5 +1,5 @@
-name: Contoso Distributor Meeting Evaluation
-description: Evaluate sales conversation quality for new vape product portfolio presentation scenario
+name: Student Services Conversation Evaluation
+description: Evaluate student advising conversation quality for academic and administrative guidance scenarios
 model: gpt-4o
 modelParameters:
   temperature: 0.3
@@ -7,20 +7,20 @@ modelParameters:
 messages:
   - role: system
     content: |
-      You are an expert sales conversation evaluator specializing in B2B vape industry interactions. Evaluate the provided sales conversation between a Contoso Key Account Manager and MegaDistrib Commercial Director.
-      
+      You are an expert student services conversation evaluator specializing in academic and administrative guidance. Evaluate the provided conversation between a student and a university advisor.
+
       EVALUATION CRITERIA:
-      
+
       **SPEAKING TONE & STYLE (30 points):**
-      1. Professional Tone (10 pts) - Confident, consultative, appropriate business language
+      1. Professional Tone (10 pts) - Polite, supportive, clear communication
       2. Active Listening Indicators (10 pts) - Acknowledges concerns, asks clarifying questions
-      3. Engagement Quality (10 pts) - Encourages dialogue, responds thoughtfully to input
-      
+      3. Engagement Quality (10 pts) - Provides encouraging dialogue and helpful follow-ups
+
       **CONVERSATION CONTENT QUALITY (70 points):**
-      1. Needs Assessment & Understanding (25 pts) - Demonstrates understanding of vape distributor challenges and regulatory environment
-      2. Value Proposition with Evidence (25 pts) - Clear benefits backed by data, examples, or compelling reasoning for vape market
-      3. Objection Handling & Problem Solving (20 pts) - Addresses concerns constructively with solutions, including compliance considerations
-      
+      1. Needs Assessment & Understanding (25 pts) - Demonstrates understanding of the student’s academic situation, deadlines and requirements
+      2. Guidance with Actionable Steps (25 pts) - Provides clear processes, offices, documents or deadlines needed to solve the student’s request
+      3. Problem Solving & Resource Direction (20 pts) - Offers alternative solutions, campus resources or escalation paths when issues arise
+
       Provide scores (0-max points) and specific feedback for improvement.
   - role: user
     content: |
@@ -28,21 +28,15 @@ messages:
       {{conversation_transcript}}
 testData:
   - conversation_transcript: |
-      Contoso KAM: Good morning Alex, thank you for taking time to meet today. I wanted to discuss our new premium vape line opportunity.
-      Alex: Morning. I'm interested to hear what you have in mind, though we're navigating some tight regulations and space constraints right now.
-      Contoso KAM: I understand the regulatory landscape is complex. Our research shows 28% of adult vapers want premium experiences - that's €3.2M annually across your network, and our products meet all current compliance standards.
-      Alex: That's promising, but won't this just take sales from our existing vape products? And what about training retailers on the new compliance requirements?
-      Contoso KAM: Actually, 82% of premium vape purchases are incremental to the category. We provide comprehensive compliance training and can start with your top 100 outlets with dedicated merchandising support.
-    expected: "Should provide detailed scoring and constructive feedback on both tone/style and content quality for vape industry context"
+      Student: Hi, I need help enrolling in a course that requires a prerequisite. I'm in my 3rd year in the Computer Science program and the class code is CS401. The prereq is CS301 which I haven't completed.
+      Advisor: Hello — no problem. You must take CS301 first. Contact the department.
+      Student: The department says CS301 was full last semester and I'm on a scholarship deadline. Is there any way to enroll?
+      Advisor: If it's full, try the waitlist. If waitlist fails, petition for a prerequisite waiver with the chair.
+    expected: "Should provide detailed scoring and constructive feedback including alternative academic solutions, resource referral and a more proactive tone."
 evaluators:
   - name: Comprehensive evaluation coverage
-    description: Addresses all evaluation criteria systematically for vape industry
+    description: Addresses all evaluation criteria systematically for student services context
   - name: Specific actionable feedback
-    description: Provides concrete suggestions for improvement in vape market context
-  - name: Balanced scoring approach
-    description: Fair assessment of both strengths and areas for development
-    description: Addresses all evaluation criteria systematically
-  - name: Specific actionable feedback
-    description: Provides concrete suggestions for improvement
+    description: Provides concrete suggestions for improvement in the advising interaction
   - name: Balanced scoring approach
     description: Fair assessment of both strengths and areas for development

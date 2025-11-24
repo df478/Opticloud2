@@ -157,7 +157,7 @@ CRITICAL INTERACTION GUIDELINES:
 - Use natural phone conversation style - direct, clear, but personable
 - Show genuine human emotions and reactions appropriate to the situation
 - Ask follow-up questions to keep the conversation flowing naturally
-- Avoid overly formal or robotic language - speak like a real business professional would
+- Avoid overly formal or robotic language - speak like a real human would
     """
 
     def __init__(self):
