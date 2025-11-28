@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Default values as constants
-DEFAULT_PORT = 80
+DEFAULT_PORT = 5000
 DEFAULT_HOST = "0.0.0.0"
 DEFAULT_REGION = "swedencentral"
 DEFAULT_MODEL = "gpt-4o"
