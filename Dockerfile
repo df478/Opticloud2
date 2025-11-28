@@ -49,7 +49,6 @@ COPY --chown=app:app backend/src/ ./src/
 COPY --chown=app:app data/scenarios/ ./data/scenarios/
 COPY --chown=app:app data/graph-api-canned.json ./data/
 COPY backend/app.py /app/app.py
-COPY backend/.env /app/.env
 
 COPY --from=frontend-builder --chown=app:app /app/static/ ./static/
 
