@@ -1,0 +1,43 @@
+# Node
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Environment variables
+.env*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional Jest cache
+jest/**
+*.coverage*
+
+# Editor folders
+.vscode/
+.idea/
+
+# Yarn v2
+.pnp.*
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/versions
