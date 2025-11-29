@@ -156,7 +156,9 @@ Users get the **same help** regardless of communication channel.
 
 ## 👥 Team
 
-* *Add your names + roles here*
+Eleazar David Condori Huanquiri eledavid88@gmail.com
+
+Eugenio Francisco Condori Rojas eufanzky@gmail.com
 
 ---
 
