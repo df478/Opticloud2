@@ -126,13 +126,9 @@ export function ChatPanel({
         <input
           type="text"
           value={input}
-          onChange={(e) => {
-            console.log('Input changed to:', e.target.value); // Debug log
-            onInputChange(e.target.value);
-          }}
-          onKeyPress={(e) => {
+          onChange={(e) => onInputChange(e.target.value)}
+          onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log('Enter pressed, input:', input); // Debug log
               onSendMessage()
             }
           }}
@@ -170,10 +166,7 @@ export function ChatPanel({
         </button>
 
         <button
-          onClick={() => {
-            console.log('Send button clicked, input:', input); // Debug log
-            onSendMessage();
-          }}
+          onClick={() => onSendMessage()}
           className="p-3 rounded-full bg-accent hover:bg-accent/90 text-white transition cursor-pointer"
         >
           <Send className="w-5 h-5" />

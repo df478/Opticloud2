@@ -5,6 +5,8 @@
 
 import { Scenario, Assessment } from '../types'
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
+
 function extractUserText(conversationMessages: any[]): string {
   return conversationMessages
     .filter(msg => msg.role === 'user')
@@ -15,17 +17,17 @@ function extractUserText(conversationMessages: any[]): string {
 
 export const api = {
   async getConfig() {
-    const res = await fetch('http://localhost:5000/api/config')
+    const res = await fetch(`${API_BASE}/api/config`)
     return res.json()
   },
 
   async getScenarios(): Promise<Scenario[]> {
-    const res = await fetch('http://localhost:5000/api/scenarios')
+    const res = await fetch(`${API_BASE}/api/scenarios`)
     return res.json()
   },
 
   async createAgent(scenarioId: string) {
-    const res = await fetch('http://localhost:5000/api/agents/create', {
+    const res = await fetch(`${API_BASE}/api/agents/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ scenario_id: scenarioId }),
@@ -42,7 +44,7 @@ export const api = {
   ): Promise<Assessment> {
     const referenceText = extractUserText(conversationMessages)
 
-    const res = await fetch('http://localhost:5000/api/analyze', {
+    const res = await fetch(`${API_BASE}/api/analyze`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -57,7 +59,7 @@ export const api = {
   },
 
   async generateGraphScenario(): Promise<Scenario> {
-    const res = await fetch('http://localhost:5000/api/scenarios/graph', {
+    const res = await fetch(`${API_BASE}/api/scenarios/graph`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     })

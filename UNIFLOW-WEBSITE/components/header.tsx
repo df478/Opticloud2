@@ -30,13 +30,13 @@ export default function Header() {
             Contact
           </Link>
           <Link
-            href="http://localhost:80"
+            href={process.env.NEXT_PUBLIC_VOICELIVE_URL || "/chatbot-demo"}
             className="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-2 rounded-full transition"
           >
             Try Demo
           </Link>
           <Link
-            href="http://localhost:8765"
+            href={process.env.NEXT_PUBLIC_AISEARCH_URL || "/chatbot-demo"}
             className="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-2 rounded-full transition"
           >
             Check RAG!
