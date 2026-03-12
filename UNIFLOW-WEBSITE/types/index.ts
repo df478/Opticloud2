@@ -50,7 +50,3 @@ export interface AgentConfig {
   agent_id: string
   scenario_id: string
 }
-export interface AgentConfig {
-  agent_id: string
-  scenario_id: string
-}

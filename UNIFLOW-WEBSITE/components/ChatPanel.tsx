@@ -130,9 +130,8 @@ export function ChatPanel({
             console.log('Input changed to:', e.target.value); // Debug log
             onInputChange(e.target.value);
           }}
-          onKeyPress={(e) => {
+          onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log('Enter pressed, input:', input); // Debug log
               onSendMessage()
             }
           }}

@@ -1,16 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, Mic, Info } from "lucide-react";
-import { VideoPanel } from "./VideoPanel";
-import { useWebRTC } from "../hooks/useWebRTC";
-import { useRealtime } from "../hooks/useRealtime";
-import { AssessmentPanel } from "../components/AssessmentPanel";
+import { Info } from "lucide-react";
 import { useScenarios } from "../hooks/useScenarios";
-import { useRecorder } from "../hooks/useRecorder";
-import { useAudioPlayer } from "../hooks/useAudioPlayer";
 import { api } from "../services/api";
-import { Assessment } from "../types";
 import { ChatPanel } from "./ChatPanel";
 
 type AgentType = "it" | "administrative" | "student" | "other";
@@ -120,7 +113,6 @@ export default function ChatbotDemoFull() {
         recognitionRef.current.onend = () => setIsListening(false);
 
         recognitionRef.current.onresult = (event: any) => {
-          const interimTranscript = "";
           for (let i = event.resultIndex; i < event.results.length; i++) {
             const transcript = event.results[i][0].transcript;
             if (event.results[i].isFinal) {
