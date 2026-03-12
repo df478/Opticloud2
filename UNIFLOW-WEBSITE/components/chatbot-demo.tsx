@@ -56,7 +56,7 @@ export default function ChatbotDemo() {
     setMessages((prev) => [...prev, userMessage])
     setInput("")
 
-    // Simulate agent response
+    // Detect agent from keywords
     setTimeout(() => {
       const responses: Record<AgentType, string> = {
         it: "I can help you with that technical issue. Let me access your account details...",
@@ -64,14 +64,22 @@ export default function ChatbotDemo() {
         admin: "I'll process that request and route it to the appropriate department.",
       }
 
-      const newAgent = (["it", "student", "admin"] as AgentType[])[Math.floor(Math.random() * 3)]
-      setCurrentAgent(newAgent)
+      const lowerInput = input.toLowerCase()
+      let detectedAgent: AgentType = currentAgent
+      if (lowerInput.includes("password") || lowerInput.includes("wifi") || lowerInput.includes("software") || lowerInput.includes("network")) {
+        detectedAgent = "it"
+      } else if (lowerInput.includes("schedule") || lowerInput.includes("class") || lowerInput.includes("grade") || lowerInput.includes("transcript")) {
+        detectedAgent = "student"
+      } else if (lowerInput.includes("form") || lowerInput.includes("document") || lowerInput.includes("request") || lowerInput.includes("deadline")) {
+        detectedAgent = "admin"
+      }
+      setCurrentAgent(detectedAgent)
 
       const agentMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: responses[newAgent],
+        text: responses[detectedAgent],
         sender: "agent",
-        agentType: newAgent,
+        agentType: detectedAgent,
         timestamp: new Date(),
       }
 
@@ -92,6 +100,10 @@ export default function ChatbotDemo() {
 
   return (
     <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-lg max-w-2xl mx-auto flex flex-col h-96 md:h-[500px]">
+      {/* Preview Banner */}
+      <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 text-center text-xs text-amber-700 dark:text-amber-400">
+        Interactive Preview — responses are simulated for demonstration purposes
+      </div>
       {/* Header */}
       <div className={`${agentConfig[currentAgent].color} text-white px-6 py-4 flex items-center justify-between`}>
         <div>

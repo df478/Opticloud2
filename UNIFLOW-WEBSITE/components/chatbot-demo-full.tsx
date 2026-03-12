@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Info } from "lucide-react";
-import { useScenarios } from "../hooks/useScenarios";
 import { api } from "../services/api";
 import { ChatPanel } from "./ChatPanel";
 
@@ -190,11 +189,7 @@ export default function ChatbotDemoFull() {
 
   const handleSendMessage = (text?: string) => {
     const messageText = text || input.trim();
-    console.log('Sending message:', messageText); // Debug log
-    if (!messageText) {
-      console.log('Empty message, not sending'); // Debug log
-      return;
-    }
+    if (!messageText) return;
 
     // Detect agent from message keywords
     let detectedAgent = activeAgent;
@@ -221,7 +216,6 @@ export default function ChatbotDemoFull() {
 
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
-    console.log('Input cleared, messages updated'); // Debug log
     setIsTyping(true);
 
     // Simulate bot typing and response
@@ -243,63 +237,30 @@ export default function ChatbotDemoFull() {
 
   const currentConfig = agentConfig[activeAgent];
 
-  // Create agent when activeAgent changes
+  // Attempt to create agent when activeAgent changes (graceful fallback when backend is unavailable)
   useEffect(() => {
     const createAgentForActiveAgent = async () => {
       if (!activeAgent) return;
 
       try {
-        // Assume scenario ID matches activeAgent key
-        const { agent_id } = await api.createAgent(activeAgent);
-        setCurrentAgent(agent_id);
-        // Clear messages when switching agents
-        setMessages([
-          {
-            id: "1",
-            text: "Welcome to MultiFlow AI! I'm your intelligent assistant. Choose what you need help with below or type your question.",
-            sender: "bot",
-            type: "suggestions",
-          },
-        ]);
-        setIsTyping(false);
-      } catch (error) {
-        console.error("Failed to create agent:", error);
+        await api.createAgent(activeAgent);
+      } catch {
+        // Backend unavailable — demo continues with simulated responses
       }
+
+      setMessages([
+        {
+          id: "1",
+          text: "Welcome to MultiFlow AI! I'm your intelligent assistant. Choose what you need help with below or type your question.",
+          sender: "bot",
+          type: "suggestions",
+        },
+      ]);
+      setIsTyping(false);
     };
 
     createAgentForActiveAgent();
   }, [activeAgent]);
-
-  // const { connected, messages, send, clearMessages, getRecordings } =
-  //   useRealtime({
-  //     agentId: currentAgent,
-  //     onMessage: handleWebRTCMessage,
-  //     onAudioDelta: playAudio,
-  //   })
-  // const sendOffer = useCallback(
-  //   (sdp: string) => {
-  //     send({ type: 'session.avatar.connect', client_sdp: sdp })
-  //   },
-  //   [send]
-  // )
-  // const { setupWebRTC, handleAnswer, videoRef } = useWebRTC(sendOffer);
-
-  // Agents handling
-  const { scenarios, selectedScenario, setSelectedScenario, loading } =
-    useScenarios();
-  const [currentAgent, setCurrentAgent] = useState<string | null>(null);
-  const [showSetup, setShowSetup] = useState(true);
-  const handleStart = async () => {
-    if (!selectedScenario) return;
-
-    try {
-      const { agent_id } = await api.createAgent(selectedScenario);
-      setCurrentAgent(agent_id);
-      setShowSetup(false);
-    } catch (error) {
-      console.error("Failed to create agent:", error);
-    }
-  };
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -365,6 +326,11 @@ export default function ChatbotDemoFull() {
           </button>
         </div>
 
+        {/* Preview Banner */}
+        <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 text-center text-xs text-amber-700 dark:text-amber-400">
+          Interactive Preview — responses are simulated for demonstration purposes
+        </div>
+
         {/* Agent Selector */}
         <div className="px-8 py-4 bg-card border-b border-border flex gap-3 flex-wrap">
           {(
@@ -412,7 +378,6 @@ export default function ChatbotDemoFull() {
           </div>
         )}
 
-        {/* <VideoPanel videoRef={} /> */}
         <ChatPanel
           messages={messages}
           recording={isListening}
@@ -420,7 +385,7 @@ export default function ChatbotDemoFull() {
           canAnalyze={messages.length > 0}
           onToggleRecording={handleMicClick}
           onClear={() => setMessages([])}
-          onAnalyze={() => console.log("Analyze")}
+          onAnalyze={() => {}}
           isTyping={isTyping}
           emoji={currentConfig.emoji}
           input={input}
